@@ -12,7 +12,7 @@ var rawXMax = -100;
 var rawYMax = -100;
 var rawZMin = 100;
 var rawZMax = -100;
-colorMode(HSB);
+
 
 function HandleFrame(frame) {
 
@@ -27,24 +27,35 @@ function HandleHand(hand) {
     //console.log(hand);
     fingers = hand.fingers;
     //console.log(fingers);
+    /*
     for (var w = 0; w < fingers.length; w++) {
         HandleFinger(fingers,w);
     }
+     */
+    var strokes = [10, 7, 4, 2];
+    var colors = [[180,180,180],[120,120,120],[60,60,60],[0,0,0]]
+    var count = 3
+
+    for (var k = 3; k >= 0; k--) {
+        strokeWeight(strokes[count]);
+        stroke(colors[count][0],colors[count][1],colors[count][2]);
+        if (count > 0) {
+            count--;
+        }
+        else {
+            count = 3;
+        }
+        for (var f = 0; f < 5; f++) {
+            handleBone(fingers[f].bones[k]);
+        }
+    }
+
+
 }
 
 function  HandleFinger(fingers,w) {
-    var strokes = [10, 7, 4, 2];
-    var colors = [[265,0,63],[265,0,40],[265,0,20],[265,0,0]]
-    var count = 0
+
     for (var j = 0; j < fingers[w].bones.length; j++) {
-        strokeWeight(strokes[count]);
-        stroke(colors[count][0],colors[count][1],colors[count][2]);
-        if (count < 4) {
-            count++;
-        }
-        else {
-            count = 0;
-        }
         handleBone(fingers[w].bones[j]);
     }
 
