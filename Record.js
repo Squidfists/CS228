@@ -10,9 +10,9 @@ var rawXMin = 100;
 var rawYMin = 100;
 var rawXMax = -100;
 var rawYMax = -100;
-var rawZMin = 100;
-var rawZMax = -100;
-
+var previousNumHands = 0;
+var currentNumHands = 0;
+var oneFrameOfData = nj.zeros([5]);
 
 function HandleFrame(frame) {
 
@@ -33,7 +33,13 @@ function HandleHand(hand) {
     }
      */
     var strokes = [10, 7, 4, 2];
-    var colors = [[180,180,180],[120,120,120],[60,60,60],[0,0,0]]
+    if (currentNumHands == 1) {
+        var colors = [[0,255,0],[0,191,0],[0,127,0],[0,64,0]]
+    }
+    if (currentNumHands == 2) {
+        var colors = [[255,0,0],[191,0,0],[127,0,0],[64,0,0]]
+    }
+
     var count = 3
 
     for (var k = 3; k >= 0; k--) {
@@ -56,7 +62,7 @@ function HandleHand(hand) {
 function  HandleFinger(fingers,w) {
 
     for (var j = 0; j < fingers[w].bones.length; j++) {
-        handleBone(fingers[w].bones[j]);
+        handleBone(fingers[w].bones[j],fingers[w]);
     }
 
     /*
@@ -85,20 +91,23 @@ function  HandleFinger(fingers,w) {
 
 }
 
-function handleBone(bone) {
+function handleBone(bone,fingerIndex) {
     bonePosition = bone.nextJoint;
     bonePosition2 = bone.prevJoint;
     x = bonePosition[0];
     y = -bonePosition[1];
+    z = bonePosition[2]
     [xb, yb] = transformCoordinates(x,y);
 
 
     x1 = bonePosition2[0];
     y1 = -bonePosition2[1];
+    z1 = bonePosition2[2];
     [xt, yt] = transformCoordinates(x1,y1);
 
     line(xb,yb,xt,yt);
-
+    var sum = x + y + z + x1 + y1 + z1;
+    oneFrameOfData.set(fingerIndex,sum);
 }
 
 function transformCoordinates(x,y) {
@@ -120,9 +129,19 @@ function transformCoordinates(x,y) {
     return [x,y];
 }
 
+function recordData(){
+    if (currentNumHands == 1 && previousNumHands == 2) {
+        background(0,0,0);
+    }
+}
+
 Leap.loop(controllerOptions, function(frame)
     {
+        currentNumHands = frame.hands.length;
         clear();
         HandleFrame(frame);
+        recordData();
+        previousNumHands = currentNumHands;
+        console.log(oneFrameOfData.toString());
     }
 );
