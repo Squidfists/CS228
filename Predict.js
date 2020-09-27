@@ -151,6 +151,15 @@ var irisData = nj.array([[	5.1	,	3.5	,	1.4	,	0.2	,	0	],
     [	6.2	,	3.4	,	5.4	,	2.3	,	2	],
     [	5.9	,	3	,	5.1	,	1.8	,	2	]]);
 
+var testingSampleIndex = 1;
+var predictedLabel;
+var currentLabel;
+var currentFeatures;
+var trainingCompleted = false;
+var numSamples = irisData.shape[0];
+var numFeatures = irisData.shape[1]-1;
+var predictedClassLabels = nj.zeros([numSamples]);
+
 function Train(){
     trainingCompleted = true;
     for(var i = 0; i < numSamples; i+=2){
@@ -165,28 +174,52 @@ function Test(){
     currentFeatures = irisData.pick(testingSampleIndex).slice([4]);
     currentLabel = irisData.pick(testingSampleIndex).get(4);
     predictedLabel = knnClassifier.classify(currentFeatures.tolist(),GotResults);
-    /*console.log(j);
-    console.log(currentFeatures.toString());
-    console.log(currentLabel);
-    console.log(predictedLabel);*/
 
 }
 
 function GotResults(err, result) {
-    console.log(parseInt(result.label));
+    //console.log(parseInt(result.label));
+    predictedClassLabels.set(testingSampleIndex,parseInt(result.label));
+    //console.log(predictedClassLabels.toString());
     testingSampleIndex += 2;
     if (testingSampleIndex > 149) {
         testingSampleIndex = 1;
     }
 }
 
-var testingSampleIndex = 1;
-var predictedLabel;
-var currentLabel;
-var currentFeatures;
-var trainingCompleted = false;
-var numSamples = irisData.shape[0];
-var numFeatures = irisData.shape[1]-1;
+function DrawCircles() {
+    for(var c = 0; c < 150; c++){
+        var x = irisData.pick(c).get(0)*100;
+        var y = irisData.pick(c).get(1)*100;
+        var color = irisData.pick(c).get(4)
+        if (color == 0){
+            fill(255,0,0);
+        }
+        else if (color == 1){
+            fill(0,0,255);
+        }
+        else {
+            fill(0,255,0);
+        }
+        if(c%2 == 0) {
+            stroke(0,0,0);
+        }
+        else {
+            if (predictedClassLabels.get(c) == 0){
+                stroke(255,0,0);
+            }
+            else if (predictedClassLabels.get(c) == 1){
+                stroke(0,0,255);
+            }
+            else if (predictedClassLabels.get(c) == 2){
+                stroke(0,255,0);
+            }
+        }
+        circle(x,y,10);
+        //console.log([x,y].toString());
+    }
+}
+
 
 function draw(){
     clear();
@@ -196,5 +229,6 @@ function draw(){
     }
 
     Test();
+    DrawCircles();
 
 }
