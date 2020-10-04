@@ -7,8 +7,11 @@ var hand;
 var fingers;
 var previousNumHands = 0;
 var currentNumHands = 0;
-var oneFrameOfData = nj.zeros([5,4,6]);
+var numSamples = 2;
+var currentSample = 0;
+var framesOfData = nj.zeros([5,4,6,numSamples]);
 
+nj.config.printThreshold = 1000;
 function HandleFrame(frame) {
 
     if (frame.hands.length > 0) {
@@ -28,7 +31,7 @@ function HandleHand(hand,InteractionBox) {
         HandleFinger(fingers,w);
     }
      */
-    var strokes = [10, 7, 4, 2];
+    var strokes = [50, 35, 20, 10];
     if (currentNumHands == 1) {
         var colors = [[0,255,0],[0,191,0],[0,127,0],[0,64,0]]
     }
@@ -63,10 +66,10 @@ function handleBone(bone,fingerIndex,boneIndex,InteractionBox) {
     var normalizedPrevJoint = InteractionBox.normalizePoint(bonePosition2, true);
     var normalizedNextJoint = InteractionBox.normalizePoint(bonePosition, true);
 
-    oneFrameOfData.set(fingerIndex,boneIndex,0,normalizedPrevJoint[0]);
-    oneFrameOfData.set(fingerIndex,boneIndex,1, normalizedPrevJoint[1]);
-    oneFrameOfData.set(fingerIndex,boneIndex,3,normalizedNextJoint[0]);
-    oneFrameOfData.set(fingerIndex,boneIndex,4, normalizedNextJoint[1]);
+    framesOfData.set(fingerIndex,boneIndex,0,currentSample,normalizedPrevJoint[0]);
+    framesOfData.set(fingerIndex,boneIndex,1, currentSample,normalizedPrevJoint[1]);
+    framesOfData.set(fingerIndex,boneIndex,3,currentSample,normalizedNextJoint[0]);
+    framesOfData.set(fingerIndex,boneIndex,4, currentSample, normalizedNextJoint[1]);
 
     var canvasXPrev = window.innerWidth * normalizedPrevJoint[0];
     var canvasYPrev = window.innerHeight * (1 - normalizedPrevJoint[1]);
@@ -78,9 +81,15 @@ function handleBone(bone,fingerIndex,boneIndex,InteractionBox) {
 }
 
 function recordData(){
+    if (currentNumHands == 2) {
+        currentSample += 1;
+        if (currentSample == numSamples) {
+            currentSample = 0;
+        }
+    }
     if (currentNumHands == 1 && previousNumHands == 2) {
         background(0,0,0);
-        console.log(oneFrameOfData.toString());
+        console.log(framesOfData.toString());
     }
 }
 
