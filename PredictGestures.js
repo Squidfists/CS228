@@ -7,16 +7,16 @@ var predictedClassLabels = nj.zeros([test.shape[3]]);
 
 function Train(){
     trainingCompleted = true;
-    for (var l = 0; l < train0.shape[3]; l++){
+    for (var l = 0; l < train3.shape[3]; l++){
         //console.log( train0.pick(null,null,null,l).toString() );
-        var features = train0.pick(null,null,null,l);
+        var features = train3.pick(null,null,null,l);
         features = features.reshape(1,120);
 
-        var features1 = train1.pick(null,null,null,l);
+        var features1 = train5.pick(null,null,null,l);
         features1 = features1.reshape(1,120);
 
-        knnClassifier.addExample(features.tolist(),0);
-        knnClassifier.addExample(features1.tolist(),1);
+        knnClassifier.addExample(features.tolist(),3);
+        knnClassifier.addExample(features1.tolist(),5);
     }
 
 }
