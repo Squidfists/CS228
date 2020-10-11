@@ -1,8 +1,4 @@
 var controllerOptions = {};
-var x = window.innerWidth/2;
-var y = window.innerHeight/2;
-var i;
-var z;
 var hand;
 var fingers;
 var previousNumHands = 0;

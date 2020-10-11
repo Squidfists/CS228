@@ -1,10 +1,83 @@
 const knnClassifier = ml5.KNNClassifier();
-
+var framesOfData = nj.zeros([5,4,6]);
 var trainingCompleted = false;
 var predictedLabel;
-var testingSampleIndex = 0;
-var predictedClassLabels = nj.zeros([test.shape[3]]);
+var predictedClassLabels = nj.zeros(1);
+var controllerOptions = {};
+var hand;
+var fingers;
+var previousNumHands = 0;
+var currentNumHands = 0;
+var numSamples = 100;
+var currentSample = 0;
 
+
+nj.config.printThreshold = 1000;
+function HandleFrame(frame) {
+
+    if (frame.hands.length > 0) {
+        hand = frame.hands[0];
+        var InteractionBox = frame.interactionBox;
+        HandleHand(hand,InteractionBox);
+        Test();
+    }
+}
+
+function HandleHand(hand,InteractionBox) {
+    //console.log(frame.hands);
+    //console.log(hand);
+    fingers = hand.fingers;
+    //console.log(fingers);
+    /*
+    for (var w = 0; w < fingers.length; w++) {
+        HandleFinger(fingers,w);
+    }
+     */
+    var strokes = [50, 35, 20, 10];
+    if (currentNumHands == 1) {
+        var colors = [[0,255,0],[0,191,0],[0,127,0],[0,64,0]]
+    }
+
+    var count = 3
+
+    for (var k = 3; k >= 0; k--) {
+        strokeWeight(strokes[count]);
+        stroke(colors[count][0],colors[count][1],colors[count][2]);
+        if (count > 0) {
+            count--;
+        }
+        else {
+            count = 3;
+        }
+        for (var f = 0; f < 5; f++) {
+            handleBone(fingers[f].bones[k],f,k,InteractionBox);
+        }
+    }
+
+
+}
+
+function handleBone(bone,fingerIndex,boneIndex,InteractionBox) {
+
+    bonePosition = bone.nextJoint;
+    bonePosition2 = bone.prevJoint;
+
+    var normalizedPrevJoint = InteractionBox.normalizePoint(bonePosition2, true);
+    var normalizedNextJoint = InteractionBox.normalizePoint(bonePosition, true);
+
+    framesOfData.set(fingerIndex,boneIndex,0, normalizedPrevJoint[0]);
+    framesOfData.set(fingerIndex,boneIndex,1, normalizedPrevJoint[1]);
+    framesOfData.set(fingerIndex,boneIndex,3, normalizedNextJoint[0]);
+    framesOfData.set(fingerIndex,boneIndex,4, normalizedNextJoint[1]);
+
+    var canvasXPrev = window.innerWidth * normalizedPrevJoint[0];
+    var canvasYPrev = window.innerHeight * (1 - normalizedPrevJoint[1]);
+    var canvasXNext = window.innerWidth * normalizedNextJoint[0];
+    var canvasYNext = window.innerHeight * (1 - normalizedNextJoint[1]);
+
+    line(canvasXNext,canvasYNext,canvasXPrev,canvasYPrev);
+
+}
 function Train(){
     trainingCompleted = true;
     for (var l = 0; l < train3.shape[3]; l++){
@@ -22,29 +95,22 @@ function Train(){
 }
 
 function Test(){
-    for (var i = 0; i < test.shape[3]; i++){
-        var testfeatures = test.pick(null,null,null,i);
-        testfeatures = testfeatures.reshape(1,120);
-        predictedLabel = knnClassifier.classify(testfeatures.tolist(),GotResults);
-    }
+    var testfeatures = framesOfData.reshape(1,120);
+    predictedLabel = knnClassifier.classify(testfeatures.tolist(),GotResults);
 }
 
 function GotResults(err, result) {
-    predictedClassLabels.set(testingSampleIndex,parseInt(result.label));
-    console.log([testingSampleIndex,predictedClassLabels.get(testingSampleIndex)]);
-    testingSampleIndex++;
-    if (testingSampleIndex >= test.shape[3]) {
-        testingSampleIndex = 0;
-    }
+    predictedClassLabels.set(0,parseInt(result.label));
+    console.log(predictedClassLabels.get(0));
 }
 
 
-function draw(){
+Leap.loop(controllerOptions, function(frame){
+    currentNumHands = frame.hands.length;
     clear();
-
     if (trainingCompleted == false){
         Train();
     }
-
-    Test();
-}
+    HandleFrame(frame);
+    previousNumHands = currentNumHands;
+});
