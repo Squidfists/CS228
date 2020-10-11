@@ -134,9 +134,9 @@ function Test(){
 
 function GotResults(err, result) {
     predictedClassLabels.set(0,parseInt(result.label));
-    /*numPredictions++;
+    numPredictions++;
     var correct = 0;
-    if (predictedClassLabels.get(0) == 5){
+    if (predictedClassLabels.get(0) == 3){
         correct = 1;
     }
     else {
@@ -145,7 +145,7 @@ function GotResults(err, result) {
     meanPredictionAccuracySoFar = ((((numPredictions - 1) * meanPredictionAccuracySoFar) + (correct)) / numPredictions);
     console.log([numPredictions,meanPredictionAccuracySoFar,predictedClassLabels.get(0)]);
 
-     */
+
     //console.log(predictedClassLabels.get(0));
 }
 
