@@ -8,8 +8,8 @@ var hand;
 var fingers;
 var previousNumHands = 0;
 var currentNumHands = 0;
-var numSamples = 100;
-var currentSample = 0;
+var numPredictions = 0;
+var meanPredictionAccuracySoFar = 0;
 
 
 nj.config.printThreshold = 1000;
@@ -94,16 +94,60 @@ function Train(){
 
 }
 
+function centerData(){
+    xValues = framesOfData.slice([],[],[0,6,3]);
+    var currentMean = xValues.mean();
+    var horizontalShift = .5 - currentMean;
+    for(var f = 0; f < framesOfData.shape[0]; f++){
+        for(var k = 0; k < framesOfData.shape[1]; k++){
+            currentX = framesOfData.get(f,k,0);
+            shiftedX = currentX + horizontalShift;
+            framesOfData.set(f,k,0, shiftedX);
+
+            currentX = framesOfData.get(f,k,3);
+            shiftedX = currentX + horizontalShift;
+            framesOfData.set(f,k,3, shiftedX);
+        }
+    }
+
+    yValues = framesOfData.slice([],[],[1,6,3]);
+    var currentyMean = yValues.mean();
+    var verticalShift = .5 - currentyMean;
+    for(var l = 0; l < framesOfData.shape[0]; l++){
+        for(var m = 0; m < framesOfData.shape[1]; m++){
+            currentY = framesOfData.get(l,m,1);
+            shiftedY = currentY + verticalShift;
+            framesOfData.set(l,m,1, shiftedY);
+
+            currentY = framesOfData.get(l,m,4);
+            shiftedY = currentY + verticalShift;
+            framesOfData.set(l,m,4, shiftedY);
+        }
+    }
+}
+
 function Test(){
+    centerData();
     var testfeatures = framesOfData.reshape(1,120);
     predictedLabel = knnClassifier.classify(testfeatures.tolist(),GotResults);
 }
 
 function GotResults(err, result) {
     predictedClassLabels.set(0,parseInt(result.label));
-    console.log(predictedClassLabels.get(0));
-}
+    /*numPredictions++;
+    var correct = 0;
+    if (predictedClassLabels.get(0) == 5){
+        correct = 1;
+    }
+    else {
+        correct = 0;
+    }
+    meanPredictionAccuracySoFar = ((((numPredictions - 1) * meanPredictionAccuracySoFar) + (correct)) / numPredictions);
+    console.log([numPredictions,meanPredictionAccuracySoFar,predictedClassLabels.get(0)]);
 
+     */
+    //console.log(predictedClassLabels.get(0));
+}
 
 Leap.loop(controllerOptions, function(frame){
     currentNumHands = frame.hands.length;
