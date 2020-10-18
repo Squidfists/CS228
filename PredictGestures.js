@@ -87,43 +87,172 @@ function Train(){
         var features = train3.pick(null,null,null,l);
         features = features.reshape(1,120);
 
+        var features3again = train3Downs.pick(null,null,null,l);
+        features3again = features3again.reshape(1,120);
+
+        var features3another = train3Jing.pick(null,null,null,l);
+        features3another = features3another.reshape(1,120);
+
+        var features3more = train3Li.pick(null,null,null,l);
+        features3more = features3more.reshape(1,120);
+
+        var features3morer = train3Luke.pick(null,null,null,l);
+        features3morer = features3morer.reshape(1,120);
+
+        var features3most = train3Bongard.pick(null,null,null,l);
+        features3most = features3most.reshape(1,120);
+
+        var features3notdoingthatjokeagain = train3Riofro.pick(null,null,null,l);
+        features3notdoingthatjokeagain = features3notdoingthatjokeagain.reshape(1,120);
+
+        var features3notyetowo = train3Nimako.pick(null,null,null,l);
+        features3notyetowo = features3notyetowo.reshape(1,120);
+
         var features1 = train5.pick(null,null,null,l);
         features1 = features1.reshape(1,120);
+
+        var features5again = train5Blewett.pick(null,null,null,l);
+        features5again = features5again.reshape(1,120);
 
         var features2 = train7.pick(null,null,null,l);
         features2 = features2.reshape(1,120);
 
+        var features7again = train7Manion.pick(null,null,null,l);
+        features7again = features7again.reshape(1,120);
+
+        var features7another = train7Pooprasert.pick(null,null,null,l);
+        features7another = features7another.reshape(1,120);
+
+        var features7more = train7Bongard.pick(null,null,null,l);
+        features7more = features7more.reshape(1,120);
+
+        var features7moreer = train7Laquerre.pick(null,null,null,l);
+        features7moreer = features7moreer.reshape(1,120);
+
+        var features7most = train7Fisher.pick(null,null,null,l);
+        features7most = features7most.reshape(1,120);
+
         var features3 = train1.pick(null,null,null,l);
         features3 = features3.reshape(1,120);
+
+        var features1another = train1Allison.pick(null,null,null,l);
+        features1another = features1another.reshape(1,120);
+
+        var features1more = train1Bongard.pick(null,null,null,l);
+        features1more = features1more.reshape(1,120);
 
         var features4 = train0.pick(null,null,null,l);
         features4 = features4.reshape(1,120);
 
+        var features0 = train0Croxford.pick(null,null,null,l);
+        features0 = features0.reshape(1,120);
+
+        var features0again = train0Allison.pick(null,null,null,l);
+        features0again = features0again.reshape(1,120);
+
         var features5 = train2.pick(null,null,null,l);
         features5 = features5.reshape(1,120);
+
+        var features2again = train2Bongard.pick(null,null,null,l);
+        features2again = features2again.reshape(1,120);
+
+        var features2another = train2Neff.pick(null,null,null,l);
+        features2another = features2another.reshape(1,120);
+
+        var features2more = train2Obrien.pick(null,null,null,l);
+        features2more = features2more.reshape(1,120);
+
+        var features2moreer = train2Rielly.pick(null,null,null,l);
+        features2moreer = features2moreer.reshape(1,120);
+
+        var features2most = train2Banana.pick(null,null,null,l);
+        features2most = features2most.reshape(1,120);
+
+        var features2onehopthistime = train2Downs.pick(null,null,null,l);
+        features2onehopthistime = features2onehopthistime.reshape(1,120);
+
+        var features2unlimitedpower = train2Jing.pick(null,null,null,l);
+        features2unlimitedpower = features2unlimitedpower.reshape(1,120);
+
+        var features2iamthesenate = train2Liu.pick(null,null,null,l);
+        features2iamthesenate = features2iamthesenate.reshape(1,120);
 
         var features6 = train4.pick(null,null,null,l);
         features6 = features6.reshape(1,120);
 
+        var features1again = train1Li.pick(null,null,null,l);
+        features1again = features1again.reshape(1,120);
+
+        var features1moreer = train1Nim.pick(null,null,null,l);
+        features1moreer = features1moreer.reshape(1,120);
+
+        var features1most= train1MCHammer.pick(null,null,null,l);
+        features1most = features1most.reshape(1,120);
+
         var features7 = train6.pick(null,null,null,l);
         features7 = features7.reshape(1,120);
+
+        var features6again = train6Laquerre.pick(null,null,null,l);
+        features6again = features6again.reshape(1,120);
+
+        var features6another = train6Potts.pick(null,null,null,l);
+        features6another = features6another.reshape(1,120);
 
         var features8 = train8.pick(null,null,null,l);
         features8 = features8.reshape(1,120);
 
+        var features8again = train8Bongard.pick(null,null,null,l);
+        features8again = features8again.reshape(1,120);
+
         var features9 = train9.pick(null,null,null,l);
         features9 = features9.reshape(1,120);
 
+        var features9again = train9Bongard.pick(null,null,null,l);
+        features9again = features9again.reshape(1,120);
+
         knnClassifier.addExample(features4.tolist(),0);
+        knnClassifier.addExample(features0.tolist(),0);
+        knnClassifier.addExample(features0again.tolist(),0);
         knnClassifier.addExample(features3.tolist(),1);
+        knnClassifier.addExample(features1another.tolist(),1);
+        knnClassifier.addExample(features1more.tolist(),1);
+        knnClassifier.addExample(features1moreer.tolist(),1);
+        knnClassifier.addExample(features1again.tolist(),1)
+        knnClassifier.addExample(features1most.tolist(),1)
         knnClassifier.addExample(features5.tolist(),2);
+        knnClassifier.addExample(features2again.tolist(),2);
+        knnClassifier.addExample(features2another.tolist(),2);
+        knnClassifier.addExample(features2more.tolist(),2);
+        knnClassifier.addExample(features2moreer.tolist(),2);
+        knnClassifier.addExample(features2onehopthistime.tolist(),2);
+        knnClassifier.addExample(features2most.tolist(),2);
+        knnClassifier.addExample(features2unlimitedpower.tolist(),2);
+        knnClassifier.addExample(features2iamthesenate.tolist(),2);
         knnClassifier.addExample(features.tolist(),3);
+        knnClassifier.addExample(features3again.tolist(),3);
+        knnClassifier.addExample(features3another.tolist(),3);
+        knnClassifier.addExample(features3more.tolist(),3);
+        knnClassifier.addExample(features3morer.tolist(),3);
+        knnClassifier.addExample(features3most.tolist(),3);
+        knnClassifier.addExample(features3notdoingthatjokeagain.tolist(),3);
+        knnClassifier.addExample(features3notyetowo.tolist(),3);
         knnClassifier.addExample(features6.tolist(),4);
         knnClassifier.addExample(features1.tolist(),5);
+        knnClassifier.addExample(features5again.tolist(),5);
         knnClassifier.addExample(features7.tolist(),6);
+        knnClassifier.addExample(features6again.tolist(),6);
+        knnClassifier.addExample(features6another.tolist(),6);
         knnClassifier.addExample(features2.tolist(),7);
+        knnClassifier.addExample(features7again.tolist(),7);
+        knnClassifier.addExample(features7another.tolist(),7);
+        knnClassifier.addExample(features7more.tolist(),7);
+        knnClassifier.addExample(features7moreer.tolist(),7);
+        knnClassifier.addExample(features7most.tolist(),7);
         knnClassifier.addExample(features8.tolist(),8);
-        knnClassifier.addExample(features8.tolist(),9);
+        knnClassifier.addExample(features8again.tolist(),8);
+        knnClassifier.addExample(features9.tolist(),9);
+        knnClassifier.addExample(features9again.tolist(),9);
+
     }
 
 }
@@ -192,7 +321,7 @@ function GotResults(err, result) {
         correct = 0;
     }
     meanPredictionAccuracySoFar = ((((numPredictions - 1) * meanPredictionAccuracySoFar) + (correct)) / numPredictions);
-    console.log([numPredictions,meanPredictionAccuracySoFar,predictedClassLabels.get(0)]);
+    console.log(predictedClassLabels.get(0));
 
 
     //console.log(predictedClassLabels.get(0));
