@@ -10,6 +10,7 @@ var previousNumHands = 0;
 var currentNumHands = 0;
 var numPredictions = 0;
 var meanPredictionAccuracySoFar = 0;
+var programState = 0;
 
 
 nj.config.printThreshold = 1000;
@@ -19,7 +20,7 @@ function HandleFrame(frame) {
         hand = frame.hands[0];
         var InteractionBox = frame.interactionBox;
         HandleHand(hand,InteractionBox);
-        Test();
+        //Test();
     }
 }
 
@@ -72,10 +73,10 @@ function handleBone(bone,fingerIndex,boneIndex,InteractionBox) {
     framesOfData.set(fingerIndex,boneIndex,4, normalizedNextJoint[1]);
     framesOfData.set(fingerIndex,boneIndex,5, normalizedNextJoint[2]);
 
-    var canvasXPrev = window.innerWidth * normalizedPrevJoint[0];
-    var canvasYPrev = window.innerHeight * (1 - normalizedPrevJoint[1]);
-    var canvasXNext = window.innerWidth * normalizedNextJoint[0];
-    var canvasYNext = window.innerHeight * (1 - normalizedNextJoint[1]);
+    var canvasXPrev = window.innerWidth/2 * normalizedPrevJoint[0];
+    var canvasYPrev = window.innerHeight/2 * (1 - normalizedPrevJoint[1]);
+    var canvasXNext = window.innerWidth/2 * normalizedNextJoint[0];
+    var canvasYNext = window.innerHeight/2 * (1 - normalizedNextJoint[1]);
 
     line(canvasXNext,canvasYNext,canvasXPrev,canvasYPrev);
 
@@ -327,12 +328,191 @@ function GotResults(err, result) {
     //console.log(predictedClassLabels.get(0));
 }
 
-Leap.loop(controllerOptions, function(frame){
+function HandIsTooFarToTheLeft(){
+    xValues = framesOfData.slice([],[],[0,6,3]);
+    var currentMean = xValues.mean();
+    if(currentMean < .25){
+        return true;
+    }
+    else {
+        return false;
+    }
+
+}
+
+function HandIsTooFarToTheRight(){
+    xValues = framesOfData.slice([],[],[0,6,3]);
+    var currentMean = xValues.mean();
+    if(currentMean > .75){
+        return true;
+    }
+    else {
+        return false;
+    }
+
+}
+
+function HandIsTooFarToTheClose(){
+    zValues = framesOfData.slice([],[],[2,6,3]);
+    var currentMean = zValues.mean();
+    if(currentMean > .75){
+        return true;
+    }
+    else {
+        return false;
+    }
+
+}
+
+function HandIsTooFarToTheFar(){
+    zValues = framesOfData.slice([],[],[2,6,3]);
+    var currentMean = zValues.mean();
+    if(currentMean < .25){
+        return true;
+    }
+    else {
+        return false;
+    }
+
+}
+
+function HandIsTooFarToTheUp(){
+    yValues = framesOfData.slice([],[],[1,6,3]);
+    var currentMean = yValues.mean();
+    if(currentMean > .75){
+        return true;
+    }
+    else {
+        return false;
+    }
+
+}
+
+function HandIsTooFarToTheDown(){
+    yValues = framesOfData.slice([],[],[1,6,3]);
+    var currentMean = yValues.mean();
+    if(currentMean < .25){
+        return true;
+    }
+    else {
+        return false;
+    }
+
+}
+
+function HandIsUncentered(){
+    var uncentered = false;
+    if(HandIsTooFarToTheLeft()){
+        uncentered = true
+    }
+    else if(HandIsTooFarToTheRight()){
+        uncentered = true;
+    }
+    else if(HandIsTooFarToTheFar()){
+        uncentered = true;
+    }
+    else if(HandIsTooFarToTheClose()){
+        uncentered = true;
+    }
+    else if(HandIsTooFarToTheUp()){
+        uncentered = true;
+    }
+    else if(HandIsTooFarToTheDown()){
+        uncentered = true;
+    }
+
+    return uncentered;
+}
+
+function DetermineState(frame){
     currentNumHands = frame.hands.length;
-    clear();
+    if(currentNumHands == 0){
+        programState = 0;
+    }
+    else if(HandIsUncentered()){
+        programState = 1;
+    }
+    else{
+        programState = 2;
+    }
+}
+
+function HandleState0(frame){
+    TrainKNNIIfNotDoneYet();
+    DrawImageToHelpUserPutTheirHandOverTheDevice();
+}
+
+function TrainKNNIIfNotDoneYet(){
     if (trainingCompleted == false){
         Train();
     }
+}
+
+function HandleState1(frame){
     HandleFrame(frame);
+    if(HandIsTooFarToTheLeft()){
+        DrawArrowRight();
+    }
+    else if(HandIsTooFarToTheRight()){
+        DrawArrowLeft();
+    }
+    else if(HandIsTooFarToTheClose()){
+        DrawArrowFar();
+    }
+    else if(HandIsTooFarToTheFar()){
+        DrawArrowClose();
+    }
+    else if(HandIsTooFarToTheUp()){
+        DrawArrowDown();
+    }
+    else if(HandIsTooFarToTheDown()){
+        DrawArrowUp();
+    }
+}
+
+function DrawArrowRight(){
+    image(left,window.innerWidth/2,0,window.innerWidth/2,window.innerHeight/2);
+}
+
+function DrawArrowLeft(){
+    image(right,window.innerWidth/2,0,window.innerWidth/2,window.innerHeight/2);
+}
+
+function DrawArrowUp(){
+    image(low,window.innerWidth/2,0,window.innerWidth/2,window.innerHeight/2);
+}
+
+function DrawArrowDown(){
+    image(high,window.innerWidth/2,0,window.innerWidth/2,window.innerHeight/2);
+}
+
+function DrawArrowFar(){
+    image(back,window.innerWidth/2,0,window.innerWidth/2,window.innerHeight/2);
+}
+
+function DrawArrowClose(){
+    image(forward,window.innerWidth/2,0,window.innerWidth/2,window.innerHeight/2);
+}
+
+function HandleState2(frame){
+    HandleFrame(frame);
+}
+
+function DrawImageToHelpUserPutTheirHandOverTheDevice(){
+    image(img,0,0,window.innerWidth/2,window.innerHeight/2);
+}
+
+Leap.loop(controllerOptions, function(frame){
+    clear();
+    DetermineState(frame);
+    if (programState==0) {
+        HandleState0(frame);
+    }
+    else if (programState==1) {
+        HandleState1(frame);
+    }
+    else if (programState==2) {
+        HandleState2(frame);
+    }
     previousNumHands = currentNumHands;
 });
