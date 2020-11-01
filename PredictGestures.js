@@ -502,6 +502,34 @@ function DrawImageToHelpUserPutTheirHandOverTheDevice(){
     image(img,0,0,window.innerWidth/2,window.innerHeight/2);
 }
 
+function SignIn(){
+    username = document.getElementById('username').value;
+    //console.log(username);
+    var list = document.getElementById('users');
+
+    if(IsNewUser(username,list)){
+        var item = document.createElement('li');
+        item.innerHTML = String(username);
+        list.appendChild(item);
+    }
+
+    console.log(list.innerHTML);
+    return false;
+}
+
+function IsNewUser(username,list){
+    var users = list.chlidren;
+    var usernameFound = false;
+
+    for(var i = 0; i < users.length; i++){
+        if(username = users[i].innerHTML){
+            usernameFound = true;
+        }
+    }
+    return usernameFound == false;
+}
+
+
 Leap.loop(controllerOptions, function(frame){
     clear();
     DetermineState(frame);
