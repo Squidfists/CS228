@@ -507,22 +507,19 @@ function SignIn(){
     //console.log(username);
     var list = document.getElementById('users');
 
-    if(IsNewUser(username,list)){
+    if(IsNewUser(username,list) == true){
         var item = document.createElement('li');
         item.innerHTML = String(username);
         list.appendChild(item);
     }
-
-    console.log(list.innerHTML);
     return false;
 }
 
 function IsNewUser(username,list){
-    var users = list.chlidren;
+    var users = list.children;
     var usernameFound = false;
-
     for(var i = 0; i < users.length; i++){
-        if(username = users[i].innerHTML){
+        if(username == users[i].innerHTML){
             usernameFound = true;
         }
     }
