@@ -508,11 +508,30 @@ function SignIn(){
     var list = document.getElementById('users');
 
     if(IsNewUser(username,list) == true){
-        var item = document.createElement('li');
-        item.innerHTML = String(username);
-        list.appendChild(item);
+        CreateNewUser(username,list);
+        CreateSignInItem(username,list);
     }
+    else {
+        ID = String(username) + "_signins"
+        listItem = document.getElementById(ID);
+        listItem.innerHTML = parseInt(listItem.innerHTML) + 1;
+    }
+    console.log(list.innerHTML);
     return false;
+}
+
+function CreateNewUser(username,list){
+    var item = document.createElement('li');
+    item.innerHTML = String(username);
+    item.id = String(username) + "_name";
+    list.appendChild(item);
+}
+
+function CreateSignInItem(username,list){
+    var item2 = document.createElement('li');
+    item2.innerHTML = 1;
+    item2.id = String(username) + "_signins";
+    list.appendChild(item2);
 }
 
 function IsNewUser(username,list){
