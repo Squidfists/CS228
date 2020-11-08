@@ -37,8 +37,10 @@ function HandleHand(hand,InteractionBox) {
     }
      */
     var strokes = [50, 35, 20, 10];
+    var scale = meanPredictionAccuracySoFar;
     if (currentNumHands == 1) {
-        var colors = [[0,255,0],[0,191,0],[0,127,0],[0,64,0]]
+        var colors = [[(1-scale)*255,(scale*255),0],[(1-scale)*191,(scale*191),0],[(1-scale)*127,(scale*127),0],[(1-scale*64),(scale*64),0]]
+
     }
 
     var count = 3
@@ -316,15 +318,15 @@ function Test(){
 function GotResults(err, result) {
     predictedClassLabels.set(0,parseInt(result.label));
     numPredictions++;
-    var correct = 0;
-    if (predictedClassLabels.get(0) == 9){
+    var correct;
+    if (predictedClassLabels.get(0) == digitToShow){
         correct = 1;
     }
     else {
         correct = 0;
     }
     meanPredictionAccuracySoFar = ((((numPredictions - 1) * meanPredictionAccuracySoFar) + (correct)) / numPredictions);
-    console.log(predictedClassLabels.get(0));
+    console.log(predictedClassLabels.get(0),meanPredictionAccuracySoFar);
 
 
     //console.log(predictedClassLabels.get(0));
@@ -532,6 +534,8 @@ function SwitchDigits(){
     else if(digitToShow == 4) {
         digitToShow = 1;
     }
+    meanPredictionAccuracySoFar = 0;
+    numPredictions = 0;
 }
 
 function DetermineWeatherToSwitchDigits(){
