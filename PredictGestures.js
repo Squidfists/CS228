@@ -11,6 +11,8 @@ var currentNumHands = 0;
 var numPredictions = 0;
 var meanPredictionAccuracySoFar = 0;
 var programState = 0;
+var digitToShow = 1;
+var timeSinceLastDigitChange = new Date();
 
 
 nj.config.printThreshold = 1000;
@@ -496,6 +498,44 @@ function DrawArrowClose(){
 
 function HandleState2(frame){
     HandleFrame(frame);
+    DetermineWeatherToSwitchDigits();
+    DrawLowerRightPanel();
+}
+
+function DrawLowerRightPanel(){
+    if(digitToShow == 1){
+        image(digi1,window.innerWidth/2,window.innerHeight/2,window.innerWidth/2,window.innerHeight/2);
+
+    }
+    else if(digitToShow == 4){
+        image(digi4,window.innerWidth/2,window.innerHeight/2,window.innerWidth/2,window.innerHeight/2);
+
+    }
+}
+
+function TimeToSwitchDigits(){
+    var currentTime = new Date();
+    var timeDifInMilliseconds = currentTime - timeSinceLastDigitChange;
+    var timeDifInSeconds = timeDifInMilliseconds/1000;
+    if(timeDifInSeconds > 1){
+        timeSinceLastDigitChange = new Date();
+        return true;
+    }
+}
+
+function SwitchDigits(){
+    if(digitToShow == 1){
+        digitToShow = 4;
+    }
+    else if(digitToShow == 4) {
+        digitToShow = 1;
+    }
+}
+
+function DetermineWeatherToSwitchDigits(){
+    if(TimeToSwitchDigits()){
+        SwitchDigits();
+    }
 }
 
 function DrawImageToHelpUserPutTheirHandOverTheDevice(){

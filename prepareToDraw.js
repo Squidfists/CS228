@@ -5,6 +5,8 @@ var forward;
 var back;
 var left;
 var right;
+var digi1;
+var digi4;
 
 function setup() {
     createCanvas(window.innerWidth,window.innerHeight);
@@ -15,4 +17,6 @@ function setup() {
     back = loadImage('https://i.imgur.com/TMNLuha.jpg');
     left = loadImage('https://i.imgur.com/WtWta5X.jpg');
     right = loadImage('https://i.imgur.com/jDEx7jo.jpg');
+    digi1 = loadImage('https://i.imgur.com/seMhuJW.jpg');
+    digi4 = loadImage('https://i.imgur.com/R5kiVeX.jpg')
 }
