@@ -500,6 +500,8 @@ function HandleState2(frame){
     HandleFrame(frame);
     DetermineWeatherToSwitchDigits();
     DrawLowerRightPanel();
+    Test();
+    console.log()
 }
 
 function DrawLowerRightPanel(){
@@ -517,7 +519,7 @@ function TimeToSwitchDigits(){
     var currentTime = new Date();
     var timeDifInMilliseconds = currentTime - timeSinceLastDigitChange;
     var timeDifInSeconds = timeDifInMilliseconds/1000;
-    if(timeDifInSeconds > 1){
+    if(timeDifInSeconds > 5){
         timeSinceLastDigitChange = new Date();
         return true;
     }
