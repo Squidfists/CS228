@@ -26,6 +26,19 @@ var nine = [9,false];
 var comebackto = [];
 var numlist = [zero,one,two,three,four,five,six,seven,eight,nine];
 var startshowingonlynumbers = false;
+var time0 = 5;
+var time1 = 5;
+var time2 = 5;
+var time3 = 5;
+var time4 = 5;
+var time5 = 5;
+var time6 = 5;
+var time7 = 5;
+var time8 = 5;
+var time9 = 5;
+var timetogo = 5;
+var times = [time0,time1,time2,time3,time4,time5,time6,time7,time8,time9];
+
 
 nj.config.printThreshold = 1000;
 function HandleFrame(frame) {
@@ -610,7 +623,7 @@ function TimeToSwitchDigits(){
     var currentTime = new Date();
     var timeDifInMilliseconds = currentTime - timeSinceLastDigitChange;
     var timeDifInSeconds = timeDifInMilliseconds/1000;
-    if(timeDifInSeconds > 5){
+    if(timeDifInSeconds > timetogo){
         timeSinceLastDigitChange = new Date();
         return true;
     }
@@ -650,6 +663,16 @@ function SwitchDigits(){
                 numlist[9][1] = false;
                 startshowingonlynumbers = true;
                 skip = true;
+                times[0] = 5;
+                times[1] = 5;
+                times[2] = 5;
+                times[3] = 5;
+                times[4] = 5;
+                times[5] = 5;
+                times[6] = 5;
+                times[7] = 5;
+                times[8] = 5;
+                times[9] = 5;
             }
             else{
                 if((numlist[nextnumberplease][1]) == false){
@@ -672,10 +695,13 @@ function SwitchDigits(){
         }
         else{
             comebackto.push(thisdigit);
+            times[thisdigit] = times[thisdigit]+1;
+
         }
     }
     meanPredictionAccuracySoFar = 0;
     numPredictions = 0;
+    timetogo = times[thisdigit];
 }
 
 function DetermineWeatherToSwitchDigits(){
