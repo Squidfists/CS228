@@ -15,6 +15,16 @@ var digi6;
 var digi7;
 var digi8;
 var digi9;
+var new0;
+var new1;
+var new2;
+var new3;
+var new4;
+var new5;
+var new6;
+var new7;
+var new8;
+var new9;
 
 function setup() {
     createCanvas(window.innerWidth,window.innerHeight);
@@ -35,4 +45,15 @@ function setup() {
     digi7 = loadImage('https://i.imgur.com/dYOGB0V.jpg');
     digi8 = loadImage('https://i.imgur.com/GFbM3Wc.jpg');
     digi9 = loadImage('https://i.imgur.com/QyHfLgg.jpg');
+    new0 = loadImage('https://i.imgur.com/UqdY0CA.png');
+    new1 = loadImage('https://i.imgur.com/LcFK3Ma.png');
+    new2 = loadImage('https://i.imgur.com/X7FLtfI.png');
+    new3 = loadImage('https://i.imgur.com/ZC6joUM.png');
+    new4 = loadImage('https://i.imgur.com/MGwji5Y.png');
+    new5 = loadImage('https://i.imgur.com/sbctn5q.png');
+    new6 = loadImage('https://i.imgur.com/i2JHbXE.png');
+    new7 = loadImage('https://i.imgur.com/urVwNT5.png');
+    new8 = loadImage('https://i.imgur.com/CtHyGLn.png');
+    new9 = loadImage('https://i.imgur.com/yNI2c8v.png');
+
 }

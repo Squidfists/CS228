@@ -519,46 +519,91 @@ function HandleState2(frame){
 }
 
 function DrawLowerRightPanel(){
-    if(digitToShow == 0){
-        image(digi0,window.innerWidth/2,window.innerHeight/2,window.innerWidth/2,window.innerHeight/2);
+    if(startshowingonlynumbers == false){
+        if(digitToShow == 0){
+            image(digi0,window.innerWidth/2,window.innerHeight/2,window.innerWidth/2,window.innerHeight/2);
 
-    }
-    else if(digitToShow == 1){
-        image(digi1,window.innerWidth/2,window.innerHeight/2,window.innerWidth/2,window.innerHeight/2);
+        }
+        else if(digitToShow == 1){
+            image(digi1,window.innerWidth/2,window.innerHeight/2,window.innerWidth/2,window.innerHeight/2);
 
-    }
-    else if(digitToShow == 2){
-        image(digi2,window.innerWidth/2,window.innerHeight/2,window.innerWidth/2,window.innerHeight/2);
+        }
+        else if(digitToShow == 2){
+            image(digi2,window.innerWidth/2,window.innerHeight/2,window.innerWidth/2,window.innerHeight/2);
 
-    }
-    else if(digitToShow == 3){
-        image(digi3,window.innerWidth/2,window.innerHeight/2,window.innerWidth/2,window.innerHeight/2);
+        }
+        else if(digitToShow == 3){
+            image(digi3,window.innerWidth/2,window.innerHeight/2,window.innerWidth/2,window.innerHeight/2);
 
-    }
-    else if(digitToShow == 4){
-        image(digi4,window.innerWidth/2,window.innerHeight/2,window.innerWidth/2,window.innerHeight/2);
+        }
+        else if(digitToShow == 4){
+            image(digi4,window.innerWidth/2,window.innerHeight/2,window.innerWidth/2,window.innerHeight/2);
 
-    }
-    else if(digitToShow == 5){
-        image(digi5,window.innerWidth/2,window.innerHeight/2,window.innerWidth/2,window.innerHeight/2);
+        }
+        else if(digitToShow == 5){
+            image(digi5,window.innerWidth/2,window.innerHeight/2,window.innerWidth/2,window.innerHeight/2);
 
-    }
-    else if(digitToShow == 6){
-        image(digi6,window.innerWidth/2,window.innerHeight/2,window.innerWidth/2,window.innerHeight/2);
+        }
+        else if(digitToShow == 6){
+            image(digi6,window.innerWidth/2,window.innerHeight/2,window.innerWidth/2,window.innerHeight/2);
 
-    }
-    else if(digitToShow == 7){
-        image(digi7,window.innerWidth/2,window.innerHeight/2,window.innerWidth/2,window.innerHeight/2);
+        }
+        else if(digitToShow == 7){
+            image(digi7,window.innerWidth/2,window.innerHeight/2,window.innerWidth/2,window.innerHeight/2);
 
-    }
-    else if(digitToShow == 8){
-        image(digi8,window.innerWidth/2,window.innerHeight/2,window.innerWidth/2,window.innerHeight/2);
+        }
+        else if(digitToShow == 8){
+            image(digi8,window.innerWidth/2,window.innerHeight/2,window.innerWidth/2,window.innerHeight/2);
 
-    }
-    else if(digitToShow == 9){
-        image(digi9,window.innerWidth/2,window.innerHeight/2,window.innerWidth/2,window.innerHeight/2);
+        }
+        else if(digitToShow == 9){
+            image(digi9,window.innerWidth/2,window.innerHeight/2,window.innerWidth/2,window.innerHeight/2);
 
+        }
     }
+    if(startshowingonlynumbers == true){
+        if(digitToShow == 0){
+            image(new0,window.innerWidth/2,window.innerHeight/2,window.innerWidth/2,window.innerHeight/2);
+
+        }
+        else if(digitToShow == 1){
+            image(new1,window.innerWidth/2,window.innerHeight/2,window.innerWidth/2,window.innerHeight/2);
+
+        }
+        else if(digitToShow == 2){
+            image(new2,window.innerWidth/2,window.innerHeight/2,window.innerWidth/2,window.innerHeight/2);
+
+        }
+        else if(digitToShow == 3){
+            image(new3,window.innerWidth/2,window.innerHeight/2,window.innerWidth/2,window.innerHeight/2);
+
+        }
+        else if(digitToShow == 4){
+            image(new4,window.innerWidth/2,window.innerHeight/2,window.innerWidth/2,window.innerHeight/2);
+
+        }
+        else if(digitToShow == 5){
+            image(new5,window.innerWidth/2,window.innerHeight/2,window.innerWidth/2,window.innerHeight/2);
+
+        }
+        else if(digitToShow == 6){
+            image(new6,window.innerWidth/2,window.innerHeight/2,window.innerWidth/2,window.innerHeight/2);
+
+        }
+        else if(digitToShow == 7){
+            image(new7,window.innerWidth/2,window.innerHeight/2,window.innerWidth/2,window.innerHeight/2);
+
+        }
+        else if(digitToShow == 8){
+            image(new8,window.innerWidth/2,window.innerHeight/2,window.innerWidth/2,window.innerHeight/2);
+
+        }
+        else if(digitToShow == 9){
+            image(new9,window.innerWidth/2,window.innerHeight/2,window.innerWidth/2,window.innerHeight/2);
+
+        }
+    }
+
 }
 
 function TimeToSwitchDigits(){
