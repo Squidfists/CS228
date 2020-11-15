@@ -11,9 +11,21 @@ var currentNumHands = 0;
 var numPredictions = 0;
 var meanPredictionAccuracySoFar = 0;
 var programState = 0;
-var digitToShow = 1;
+var digitToShow = 0;
 var timeSinceLastDigitChange = new Date();
-
+var zero = [0,false];
+var one = [1,false];
+var two = [2,false];
+var three = [3,false];
+var four = [4,false];
+var five = [5,false];
+var six = [6,false];
+var seven = [7,false];
+var eight = [8,false];
+var nine = [9,false];
+var comebackto = [];
+var numlist = [zero,one,two,three,four,five,six,seven,eight,nine];
+var startshowingonlynumbers = false;
 
 nj.config.printThreshold = 1000;
 function HandleFrame(frame) {
@@ -507,12 +519,44 @@ function HandleState2(frame){
 }
 
 function DrawLowerRightPanel(){
-    if(digitToShow == 1){
+    if(digitToShow == 0){
+        image(digi0,window.innerWidth/2,window.innerHeight/2,window.innerWidth/2,window.innerHeight/2);
+
+    }
+    else if(digitToShow == 1){
         image(digi1,window.innerWidth/2,window.innerHeight/2,window.innerWidth/2,window.innerHeight/2);
+
+    }
+    else if(digitToShow == 2){
+        image(digi2,window.innerWidth/2,window.innerHeight/2,window.innerWidth/2,window.innerHeight/2);
+
+    }
+    else if(digitToShow == 3){
+        image(digi3,window.innerWidth/2,window.innerHeight/2,window.innerWidth/2,window.innerHeight/2);
 
     }
     else if(digitToShow == 4){
         image(digi4,window.innerWidth/2,window.innerHeight/2,window.innerWidth/2,window.innerHeight/2);
+
+    }
+    else if(digitToShow == 5){
+        image(digi5,window.innerWidth/2,window.innerHeight/2,window.innerWidth/2,window.innerHeight/2);
+
+    }
+    else if(digitToShow == 6){
+        image(digi6,window.innerWidth/2,window.innerHeight/2,window.innerWidth/2,window.innerHeight/2);
+
+    }
+    else if(digitToShow == 7){
+        image(digi7,window.innerWidth/2,window.innerHeight/2,window.innerWidth/2,window.innerHeight/2);
+
+    }
+    else if(digitToShow == 8){
+        image(digi8,window.innerWidth/2,window.innerHeight/2,window.innerWidth/2,window.innerHeight/2);
+
+    }
+    else if(digitToShow == 9){
+        image(digi9,window.innerWidth/2,window.innerHeight/2,window.innerWidth/2,window.innerHeight/2);
 
     }
 }
@@ -527,12 +571,63 @@ function TimeToSwitchDigits(){
     }
 }
 
+//CHANGE THIS FUNCTION
 function SwitchDigits(){
-    if(digitToShow == 1){
-        digitToShow = 4;
+    var countchocula = 0;
+    var nextnumberplease = digitToShow+1;
+    var thisdigit = digitToShow;
+    var skip = false;
+    if(nextnumberplease == 10){
+        nextnumberplease = 0;
     }
-    else if(digitToShow == 4) {
-        digitToShow = 1;
+
+    if(comebackto.length > 0){
+        digitToShow = comebackto[0];
+        comebackto.shift();
+    }
+    else{
+        var searching = true;
+        while(searching){
+            if(countchocula == 9){
+                searching = false;
+                countchocula = 0;
+                digitToShow = 0;
+                comebackto = [];
+                numlist[0][1] = false;
+                numlist[1][1] = false;
+                numlist[2][1] = false;
+                numlist[3][1] = false;
+                numlist[4][1] = false;
+                numlist[5][1] = false;
+                numlist[6][1] = false;
+                numlist[7][1] = false;
+                numlist[8][1] = false;
+                numlist[9][1] = false;
+                startshowingonlynumbers = true;
+                skip = true;
+            }
+            else{
+                if((numlist[nextnumberplease][1]) == false){
+                    digitToShow = nextnumberplease;
+                    searching = false;
+                }
+                else{
+                    countchocula+=1
+                    nextnumberplease+=1
+                    if(nextnumberplease == 10){
+                        nextnumberplease = 0;
+                    }
+                }
+            }
+        }
+    }
+    if(skip == false){
+        if(meanPredictionAccuracySoFar >= .75){
+            numlist[thisdigit][1] = true;
+        }
+        else{
+            comebackto.push(thisdigit);
+        }
     }
     meanPredictionAccuracySoFar = 0;
     numPredictions = 0;
