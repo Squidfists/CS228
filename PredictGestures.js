@@ -25,6 +25,19 @@ var eight = [8,false];
 var nine = [9,false];
 var comebackto = [];
 var numlist = [zero,one,two,three,four,five,six,seven,eight,nine];
+
+var equation1 = [5,false];
+var equation2 = [8, false];
+var equation3 = [0, false];
+var equation4 = [1, false];
+var equation5 = [5, false];
+var equation6 = [9, false];
+var equation7 = [5, false];
+var equation8 = [3, false];
+var equation9 = [2, false];
+var equation10 = [0, false];
+var equlist = [equation1,equation2,equation3,equation4,equation5,equation6,equation7,equation8,equation9,equation10];
+
 var startshowingonlynumbers = false;
 var time0 = 5;
 var time1 = 5;
@@ -38,7 +51,8 @@ var time8 = 5;
 var time9 = 5;
 var timetogo = 5;
 var times = [time0,time1,time2,time3,time4,time5,time6,time7,time8,time9];
-
+var mode = 0;
+var answer = 0;
 
 nj.config.printThreshold = 1000;
 function HandleFrame(frame) {
@@ -344,7 +358,7 @@ function GotResults(err, result) {
     predictedClassLabels.set(0,parseInt(result.label));
     numPredictions++;
     var correct;
-    if (predictedClassLabels.get(0) == digitToShow){
+    if (predictedClassLabels.get(0) == answer){
         correct = 1;
     }
     else {
@@ -533,45 +547,89 @@ function HandleState2(frame){
 
 function DrawLowerRightPanel(){
     if(startshowingonlynumbers == false){
-        if(digitToShow == 0){
-            image(digi0,window.innerWidth/2,window.innerHeight/2,window.innerWidth/2,window.innerHeight/2);
+        if(whichModeAmI() == 0){
+            if(digitToShow == 0){
+                image(digi0,window.innerWidth/2,window.innerHeight/2,window.innerWidth/2,window.innerHeight/2);
 
+            }
+            else if(digitToShow == 1){
+                image(digi1,window.innerWidth/2,window.innerHeight/2,window.innerWidth/2,window.innerHeight/2);
+
+            }
+            else if(digitToShow == 2){
+                image(digi2,window.innerWidth/2,window.innerHeight/2,window.innerWidth/2,window.innerHeight/2);
+
+            }
+            else if(digitToShow == 3){
+                image(digi3,window.innerWidth/2,window.innerHeight/2,window.innerWidth/2,window.innerHeight/2);
+
+            }
+            else if(digitToShow == 4){
+                image(digi4,window.innerWidth/2,window.innerHeight/2,window.innerWidth/2,window.innerHeight/2);
+
+            }
+            else if(digitToShow == 5){
+                image(digi5,window.innerWidth/2,window.innerHeight/2,window.innerWidth/2,window.innerHeight/2);
+
+            }
+            else if(digitToShow == 6){
+                image(digi6,window.innerWidth/2,window.innerHeight/2,window.innerWidth/2,window.innerHeight/2);
+
+            }
+            else if(digitToShow == 7){
+                image(digi7,window.innerWidth/2,window.innerHeight/2,window.innerWidth/2,window.innerHeight/2);
+
+            }
+            else if(digitToShow == 8){
+                image(digi8,window.innerWidth/2,window.innerHeight/2,window.innerWidth/2,window.innerHeight/2);
+
+            }
+            else if(digitToShow == 9){
+                image(digi9,window.innerWidth/2,window.innerHeight/2,window.innerWidth/2,window.innerHeight/2);
+
+            }
         }
-        else if(digitToShow == 1){
-            image(digi1,window.innerWidth/2,window.innerHeight/2,window.innerWidth/2,window.innerHeight/2);
+        else if(whichModeAmI() == 1){
+            if(digitToShow == 0){
+                image(equ1,window.innerWidth/2,window.innerHeight/2,window.innerWidth/2,window.innerHeight/2);
 
-        }
-        else if(digitToShow == 2){
-            image(digi2,window.innerWidth/2,window.innerHeight/2,window.innerWidth/2,window.innerHeight/2);
+            }
+            else if(digitToShow == 1){
+                image(equ2,window.innerWidth/2,window.innerHeight/2,window.innerWidth/2,window.innerHeight/2);
 
-        }
-        else if(digitToShow == 3){
-            image(digi3,window.innerWidth/2,window.innerHeight/2,window.innerWidth/2,window.innerHeight/2);
+            }
+            else if(digitToShow == 2){
+                image(equ3,window.innerWidth/2,window.innerHeight/2,window.innerWidth/2,window.innerHeight/2);
 
-        }
-        else if(digitToShow == 4){
-            image(digi4,window.innerWidth/2,window.innerHeight/2,window.innerWidth/2,window.innerHeight/2);
+            }
+            else if(digitToShow == 3){
+                image(equ4,window.innerWidth/2,window.innerHeight/2,window.innerWidth/2,window.innerHeight/2);
 
-        }
-        else if(digitToShow == 5){
-            image(digi5,window.innerWidth/2,window.innerHeight/2,window.innerWidth/2,window.innerHeight/2);
+            }
+            else if(digitToShow == 4){
+                image(equ5,window.innerWidth/2,window.innerHeight/2,window.innerWidth/2,window.innerHeight/2);
 
-        }
-        else if(digitToShow == 6){
-            image(digi6,window.innerWidth/2,window.innerHeight/2,window.innerWidth/2,window.innerHeight/2);
+            }
+            else if(digitToShow == 5){
+                image(equ6,window.innerWidth/2,window.innerHeight/2,window.innerWidth/2,window.innerHeight/2);
 
-        }
-        else if(digitToShow == 7){
-            image(digi7,window.innerWidth/2,window.innerHeight/2,window.innerWidth/2,window.innerHeight/2);
+            }
+            else if(digitToShow == 6){
+                image(equ7,window.innerWidth/2,window.innerHeight/2,window.innerWidth/2,window.innerHeight/2);
 
-        }
-        else if(digitToShow == 8){
-            image(digi8,window.innerWidth/2,window.innerHeight/2,window.innerWidth/2,window.innerHeight/2);
+            }
+            else if(digitToShow == 7){
+                image(equ8,window.innerWidth/2,window.innerHeight/2,window.innerWidth/2,window.innerHeight/2);
 
-        }
-        else if(digitToShow == 9){
-            image(digi9,window.innerWidth/2,window.innerHeight/2,window.innerWidth/2,window.innerHeight/2);
+            }
+            else if(digitToShow == 8){
+                image(equ9,window.innerWidth/2,window.innerHeight/2,window.innerWidth/2,window.innerHeight/2);
 
+            }
+            else if(digitToShow == 9){
+                image(equ10,window.innerWidth/2,window.innerHeight/2,window.innerWidth/2,window.innerHeight/2);
+
+            }
         }
     }
     if(startshowingonlynumbers == true){
@@ -631,6 +689,14 @@ function TimeToSwitchDigits(){
 
 //CHANGE THIS FUNCTION
 function SwitchDigits(){
+    var usethis;
+    if(whichModeAmI() == 0){
+        usethis = numlist;
+    }
+    else if(whichModeAmI() == 1){
+        usethis = equlist;
+    }
+
     var countchocula = 0;
     var nextnumberplease = digitToShow+1;
     var thisdigit = digitToShow;
@@ -641,28 +707,43 @@ function SwitchDigits(){
 
     if(comebackto.length > 0){
         digitToShow = comebackto[0];
+        answer = usethis[digitToShow][0];
         comebackto.shift();
     }
     else{
         var searching = true;
         while(searching){
             if(countchocula == 9){
+                if(whichModeAmI() == 0){
+                    numlist[0][1] = false;
+                    numlist[1][1] = false;
+                    numlist[2][1] = false;
+                    numlist[3][1] = false;
+                    numlist[4][1] = false;
+                    numlist[5][1] = false;
+                    numlist[6][1] = false;
+                    numlist[7][1] = false;
+                    numlist[8][1] = false;
+                    numlist[9][1] = false;
+                    startshowingonlynumbers = true;
+                    skip = true;
+                }
+                else if(whichModeAmI() == 1){
+                    equlist[0][1] = false;
+                    equlist[1][1] = false;
+                    equlist[2][1] = false;
+                    equlist[3][1] = false;
+                    equlist[4][1] = false;
+                    equlist[5][1] = false;
+                    equlist[6][1] = false;
+                    equlist[7][1] = false;
+                    equlist[8][1] = false;
+                    equlist[9][1] = false;
+                }
                 searching = false;
                 countchocula = 0;
                 digitToShow = 0;
                 comebackto = [];
-                numlist[0][1] = false;
-                numlist[1][1] = false;
-                numlist[2][1] = false;
-                numlist[3][1] = false;
-                numlist[4][1] = false;
-                numlist[5][1] = false;
-                numlist[6][1] = false;
-                numlist[7][1] = false;
-                numlist[8][1] = false;
-                numlist[9][1] = false;
-                startshowingonlynumbers = true;
-                skip = true;
                 times[0] = 5;
                 times[1] = 5;
                 times[2] = 5;
@@ -675,7 +756,8 @@ function SwitchDigits(){
                 times[9] = 5;
             }
             else{
-                if((numlist[nextnumberplease][1]) == false){
+                if((usethis[nextnumberplease][1]) == false){
+                    answer = usethis[nextnumberplease][0];
                     digitToShow = nextnumberplease;
                     searching = false;
                 }
@@ -691,7 +773,12 @@ function SwitchDigits(){
     }
     if(skip == false){
         if(meanPredictionAccuracySoFar >= .75){
-            numlist[thisdigit][1] = true;
+            if(whichModeAmI() == 0){
+                numlist[thisdigit][1] = true;
+            }
+            else if(whichModeAmI() == 1){
+                equlist[thisdigit][1] = true;
+            }
         }
         else{
             comebackto.push(thisdigit);
@@ -702,6 +789,41 @@ function SwitchDigits(){
     meanPredictionAccuracySoFar = 0;
     numPredictions = 0;
     timetogo = times[thisdigit];
+}
+
+function whichModeAmI(){
+    return mode;
+}
+
+function switchModes(){
+    if(whichModeAmI() == 0){
+        mode = 1;
+    }
+    else if(whichModeAmI() == 1){
+        mode = 0;
+    }
+    comebackto=[]
+    digitToShow=0
+    numlist[0][1] = false;
+    numlist[1][1] = false;
+    numlist[2][1] = false;
+    numlist[3][1] = false;
+    numlist[4][1] = false;
+    numlist[5][1] = false;
+    numlist[6][1] = false;
+    numlist[7][1] = false;
+    numlist[8][1] = false;
+    numlist[9][1] = false;
+    times[0] = 5;
+    times[1] = 5;
+    times[2] = 5;
+    times[3] = 5;
+    times[4] = 5;
+    times[5] = 5;
+    times[6] = 5;
+    times[7] = 5;
+    times[8] = 5;
+    times[9] = 5;
 }
 
 function DetermineWeatherToSwitchDigits(){

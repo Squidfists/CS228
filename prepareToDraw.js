@@ -26,6 +26,17 @@ var new7;
 var new8;
 var new9;
 
+var equ1;
+var equ2;
+var equ3;
+var equ4;
+var equ5;
+var equ6;
+var equ7;
+var equ8;
+var equ9;
+var equ10;
+
 function setup() {
     createCanvas(window.innerWidth,window.innerHeight);
     img = loadImage('https://i.imgur.com/0B11mBw.jpg');
@@ -55,5 +66,17 @@ function setup() {
     new7 = loadImage('https://i.imgur.com/urVwNT5.png');
     new8 = loadImage('https://i.imgur.com/CtHyGLn.png');
     new9 = loadImage('https://i.imgur.com/yNI2c8v.png');
+
+    equ1 = loadImage('https://i.imgur.com/q1nxnXm.png');
+    equ2 = loadImage('https://i.imgur.com/khYNLBJ.png');
+    equ3 = loadImage('https://i.imgur.com/FU3dwuH.png');
+    equ4 = loadImage('https://i.imgur.com/zD8Tmll.png');
+    equ5 = loadImage('https://i.imgur.com/0FWnKz3.png');
+    equ6 = loadImage('https://i.imgur.com/HWtXKC2.png');
+    equ7 = loadImage('https://i.imgur.com/yzkQ949.png');
+    equ8 = loadImage('https://i.imgur.com/TTnkKbe.png');
+    equ9 = loadImage('https://i.imgur.com/3yWMr5V.png');
+    equ10 = loadImage('https://i.imgur.com/FU3dwuH.png');
+
 
 }
