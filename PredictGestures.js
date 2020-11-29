@@ -54,6 +54,9 @@ var times = [time0,time1,time2,time3,time4,time5,time6,time7,time8,time9];
 var mode = 0;
 var answer = 0;
 
+var allUsers = [];
+var userlist = [];
+
 nj.config.printThreshold = 1000;
 function HandleFrame(frame) {
 
@@ -124,6 +127,7 @@ function handleBone(bone,fingerIndex,boneIndex,InteractionBox) {
     line(canvasXNext,canvasYNext,canvasXPrev,canvasYPrev);
 
 }
+
 function Train(){
     trainingCompleted = true;
     for (var l = 0; l < 2; l++){
@@ -541,8 +545,8 @@ function HandleState2(frame){
     HandleFrame(frame);
     DetermineWeatherToSwitchDigits();
     DrawLowerRightPanel();
+    drawLowerLeftPanel();
     Test();
-    console.log()
 }
 
 function DrawLowerRightPanel(){
@@ -687,7 +691,6 @@ function TimeToSwitchDigits(){
     }
 }
 
-//CHANGE THIS FUNCTION
 function SwitchDigits(){
     var usethis;
     if(whichModeAmI() == 0){
@@ -773,6 +776,7 @@ function SwitchDigits(){
     }
     if(skip == false){
         if(meanPredictionAccuracySoFar >= .75){
+            addToScore();
             if(whichModeAmI() == 0){
                 numlist[thisdigit][1] = true;
             }
@@ -844,11 +848,14 @@ function SignIn(){
     if(IsNewUser(username,list) == true){
         CreateNewUser(username,list);
         CreateSignInItem(username,list);
+        CreatePersonalBestItem(username,list);
+        CreateCurrentScoreItem(username,list);
     }
     else {
         ID = String(username) + "_signins"
         listItem = document.getElementById(ID);
         listItem.innerHTML = parseInt(listItem.innerHTML) + 1;
+        resetCurrentScore();
     }
     console.log(list.innerHTML);
     return false;
@@ -861,11 +868,30 @@ function CreateNewUser(username,list){
     list.appendChild(item);
 }
 
+function AddBackReturningUsers(list){
+
+}
+
 function CreateSignInItem(username,list){
     var item2 = document.createElement('li');
     item2.innerHTML = 1;
     item2.id = String(username) + "_signins";
     list.appendChild(item2);
+}
+
+function CreatePersonalBestItem(username,list){
+    var item3 = document.createElement('li');
+    item3.innerHTML = 0;
+    item3.id = String(username) + "_personalBest";
+    list.appendChild(item3);
+}
+
+function CreateCurrentScoreItem(username,list){
+    var item4 = document.createElement('li');
+    item4.innerHTML = 0;
+    item4.id = String(username) + "_currentScore";
+    list.appendChild(item4);
+
 }
 
 function IsNewUser(username,list){
@@ -876,9 +902,55 @@ function IsNewUser(username,list){
             usernameFound = true;
         }
     }
+    usernew = usernameFound == false;
     return usernameFound == false;
 }
 
+function drawLowerLeftPanel(){
+    if(usernew == true){
+        text("Try and set a high score!",0,window.innerHeight/2,window.innerWidth/4,window.innerHeight/4);
+    }
+    else{
+        if(bestBeat == false){
+            text("Try and beat your high score!",0,window.innerHeight/2,window.innerWidth/4,window.innerHeight/4);
+        }
+        else{
+            text("Keep it up!",0,window.innerHeight/2,window.innerWidth/4,window.innerHeight/4);
+        }
+    }
+    ID = String(username) + "_currentScore";
+    listItem = document.getElementById(ID);
+    ID2 = String(username) + "_personalBest";
+    listItem2 = document.getElementById(ID);
+
+    text("Current score = " + listItem.innerHTML,0,(window.innerHeight/2)+(window.innerHeight/4),window.innerWidth/2,window.innerHeight/8);
+    text("High score = " + listItem2.innerText,0,(window.innerHeight/2)+(window.innerHeight/4)+(window.innerHeight/8),window.innerWidth/2,window.innerHeight/8);
+}
+
+function resetCurrentScore(){
+    ID = String(username) + "_currentScore";
+    listItem = document.getElementById(ID);
+    listItem.innerHTML = 0;
+}
+
+function addToScore(){
+    ID = String(username) + "_currentScore";
+    listItem = document.getElementById(ID);
+    if(whichModeAmI() == 0){
+        listItem.innerHTML = parseInt(listItem.innerHTML) + 1;
+    }
+    else if(whichModeAmI() == 1){
+        listItem.innerHTML = parseInt(listItem.innerHTML) + 2;
+    }
+
+    ID2 = String(username) + "_personalBest";
+    listItem2 = document.getElementById(ID);
+
+    if(listItem.innerHTML > listItem2.innerHTML){
+        listItem2.innerHTML = parseInt(listItem.innerHTML);
+        bestBeat = true;
+    }
+}
 
 Leap.loop(controllerOptions, function(frame){
     clear();
