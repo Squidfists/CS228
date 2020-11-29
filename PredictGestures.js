@@ -25,6 +25,7 @@ var eight = [8,false];
 var nine = [9,false];
 var comebackto = [];
 var numlist = [zero,one,two,three,four,five,six,seven,eight,nine];
+var bestBeat = false;
 
 var equation1 = [5,false];
 var equation2 = [8, false];
@@ -54,10 +55,11 @@ var times = [time0,time1,time2,time3,time4,time5,time6,time7,time8,time9];
 var mode = 0;
 var answer = 0;
 
-var allUsers = [];
-var userlist = [];
-
 nj.config.printThreshold = 1000;
+
+var list;
+var username;
+
 function HandleFrame(frame) {
 
     if (frame.hands.length > 0) {
@@ -843,7 +845,7 @@ function DrawImageToHelpUserPutTheirHandOverTheDevice(){
 function SignIn(){
     username = document.getElementById('username').value;
     //console.log(username);
-    var list = document.getElementById('users');
+    list = document.getElementById('users');
 
     if(IsNewUser(username,list) == true){
         CreateNewUser(username,list);
@@ -866,10 +868,6 @@ function CreateNewUser(username,list){
     item.innerHTML = String(username);
     item.id = String(username) + "_name";
     list.appendChild(item);
-}
-
-function AddBackReturningUsers(list){
-
 }
 
 function CreateSignInItem(username,list){
@@ -907,6 +905,9 @@ function IsNewUser(username,list){
 }
 
 function drawLowerLeftPanel(){
+
+
+    //RightSide
     if(usernew == true){
         text("Try and set a high score!",0,window.innerHeight/2,window.innerWidth/4,window.innerHeight/4);
     }
@@ -923,9 +924,38 @@ function drawLowerLeftPanel(){
     ID2 = String(username) + "_personalBest";
     listItem2 = document.getElementById(ID);
 
-    text("Current score = " + listItem.innerHTML,0,(window.innerHeight/2)+(window.innerHeight/4),window.innerWidth/2,window.innerHeight/8);
-    text("High score = " + listItem2.innerText,0,(window.innerHeight/2)+(window.innerHeight/4)+(window.innerHeight/8),window.innerWidth/2,window.innerHeight/8);
+    text("Current score = " + listItem.innerHTML,0,(window.innerHeight/2)+(window.innerHeight/4),window.innerWidth/4,window.innerHeight/8);
+    text("High score = " + listItem2.innerText,0,(window.innerHeight/2)+(window.innerHeight/4)+(window.innerHeight/8),window.innerWidth/4,window.innerHeight/8);
+
+    //Left Side
+    text("Scoreboard",window.innerWidth/4,window.innerHeight/2,window.innerWidth/4,window.innerHeight/8);
+    var scores = [];
+    var userscore = [];
+    for(var i = 0; i < list.children.length; i+=4){
+        userscore.push(list.children[i].innerHTML);
+        scores.push(userscore);
+        userscore = [];
+    }
+    count = 0
+    for(var k = 0; k < scores.length; k+=1){
+        Ident = String(scores[k]) + "_personalBest";
+        listitems = document.getElementById(Ident);
+        scores[k].push((parseInt(listitems.innerHTML)).toString());
+    }
+    console.log(scores);
+    scores.sort(function (a,b){
+        return b[1] - a[1];
+    });
+
+    newcount = 0
+    for(var f = 0; f < scores.length; f++){
+        text(scores[f][0] + " = " + scores[f][1],window.innerWidth/4,(window.innerHeight/2)+(window.innerHeight/8)+((newcount*3*window.innerHeight)/(8*scores.length)),window.innerWidth/4,(3*window.innerHeight)/(8*scores.length));
+        newcount+=1;
+    }
+
 }
+
+
 
 function resetCurrentScore(){
     ID = String(username) + "_currentScore";
@@ -936,6 +966,7 @@ function resetCurrentScore(){
 function addToScore(){
     ID = String(username) + "_currentScore";
     listItem = document.getElementById(ID);
+
     if(whichModeAmI() == 0){
         listItem.innerHTML = parseInt(listItem.innerHTML) + 1;
     }
@@ -944,7 +975,7 @@ function addToScore(){
     }
 
     ID2 = String(username) + "_personalBest";
-    listItem2 = document.getElementById(ID);
+    listItem2 = document.getElementById(ID2);
 
     if(listItem.innerHTML > listItem2.innerHTML){
         listItem2.innerHTML = parseInt(listItem.innerHTML);
