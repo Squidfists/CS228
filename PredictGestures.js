@@ -777,7 +777,7 @@ function SwitchDigits(){
         }
     }
     if(skip == false){
-        if(meanPredictionAccuracySoFar >= .75){
+        if(meanPredictionAccuracySoFar >= .60){
             addToScore();
             if(whichModeAmI() == 0){
                 numlist[thisdigit][1] = true;
@@ -906,7 +906,8 @@ function IsNewUser(username,list){
 
 function drawLowerLeftPanel(){
 
-
+    noStroke();
+    //noFill();
     //RightSide
     if(usernew == true){
         text("Try and set a high score!",0,window.innerHeight/2,window.innerWidth/4,window.innerHeight/4);
@@ -922,8 +923,8 @@ function drawLowerLeftPanel(){
     ID = String(username) + "_currentScore";
     listItem = document.getElementById(ID);
     ID2 = String(username) + "_personalBest";
-    listItem2 = document.getElementById(ID);
-
+    listItem2 = document.getElementById(ID2);
+    console.log(listItem2);
     text("Current score = " + listItem.innerHTML,0,(window.innerHeight/2)+(window.innerHeight/4),window.innerWidth/4,window.innerHeight/8);
     text("High score = " + listItem2.innerText,0,(window.innerHeight/2)+(window.innerHeight/4)+(window.innerHeight/8),window.innerWidth/4,window.innerHeight/8);
 
@@ -942,7 +943,7 @@ function drawLowerLeftPanel(){
         listitems = document.getElementById(Ident);
         scores[k].push((parseInt(listitems.innerHTML)).toString());
     }
-    console.log(scores);
+
     scores.sort(function (a,b){
         return b[1] - a[1];
     });
@@ -977,7 +978,7 @@ function addToScore(){
     ID2 = String(username) + "_personalBest";
     listItem2 = document.getElementById(ID2);
 
-    if(listItem.innerHTML > listItem2.innerHTML){
+    if(parseInt(listItem.innerHTML) > parseInt(listItem2.innerHTML)){
         listItem2.innerHTML = parseInt(listItem.innerHTML);
         bestBeat = true;
     }
