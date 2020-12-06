@@ -60,6 +60,11 @@ nj.config.printThreshold = 1000;
 var list;
 var username;
 
+var alltheequationsbaybee = ["1+1","1+2","1+3","1+4","1+5","1+6","1+7","1+8","2+2","2+3","2+4","2+5","2+6","2+7","3+3","3+4","3+5","3+6","4+4","4+5",
+    "1-1","2-1","2-2","3-1","3-2","3-3","4-1","4-2","4-3","4-4","5-1","5-2","5-3","5-4","5-5","6-1","6-2","6-3","6-4","6-5","6-6","7-1","7-2","7-3","7-4","7-5","7-6","7-7","8-1","8-2","8-3","8-4","8-5",
+    "8-6","8-7","8-8","9-1","9-2",'9-3',"9-4","9-5","9-6","9-7","9-8","9-9","2*2","2*3","2*4","3*3","8/4","6/3","8/2","6/2","4/2","9/3"];
+var val;
+
 function HandleFrame(frame) {
 
     if (frame.hands.length > 0) {
@@ -554,45 +559,89 @@ function HandleState2(frame){
 function DrawLowerRightPanel(){
     if(startshowingonlynumbers == false){
         if(whichModeAmI() == 0){
-            if(digitToShow == 0){
-                image(digi0,window.innerWidth/2,window.innerHeight/2,window.innerWidth/2,window.innerHeight/2);
+            if(startshowingonlynumbers == true){
+                if(digitToShow == 0){
+                    image(new0,window.innerWidth/2,window.innerHeight/2,window.innerWidth/2,window.innerHeight/2);
 
+                }
+                else if(digitToShow == 1){
+                    image(new1,window.innerWidth/2,window.innerHeight/2,window.innerWidth/2,window.innerHeight/2);
+
+                }
+                else if(digitToShow == 2){
+                    image(new2,window.innerWidth/2,window.innerHeight/2,window.innerWidth/2,window.innerHeight/2);
+
+                }
+                else if(digitToShow == 3){
+                    image(new3,window.innerWidth/2,window.innerHeight/2,window.innerWidth/2,window.innerHeight/2);
+
+                }
+                else if(digitToShow == 4){
+                    image(new4,window.innerWidth/2,window.innerHeight/2,window.innerWidth/2,window.innerHeight/2);
+
+                }
+                else if(digitToShow == 5){
+                    image(new5,window.innerWidth/2,window.innerHeight/2,window.innerWidth/2,window.innerHeight/2);
+
+                }
+                else if(digitToShow == 6){
+                    image(new6,window.innerWidth/2,window.innerHeight/2,window.innerWidth/2,window.innerHeight/2);
+
+                }
+                else if(digitToShow == 7){
+                    image(new7,window.innerWidth/2,window.innerHeight/2,window.innerWidth/2,window.innerHeight/2);
+
+                }
+                else if(digitToShow == 8){
+                    image(new8,window.innerWidth/2,window.innerHeight/2,window.innerWidth/2,window.innerHeight/2);
+
+                }
+                else if(digitToShow == 9){
+                    image(new9,window.innerWidth/2,window.innerHeight/2,window.innerWidth/2,window.innerHeight/2);
+
+                }
             }
-            else if(digitToShow == 1){
-                image(digi1,window.innerWidth/2,window.innerHeight/2,window.innerWidth/2,window.innerHeight/2);
+            else{
+                if(digitToShow == 0){
+                    image(digi0,window.innerWidth/2,window.innerHeight/2,window.innerWidth/2,window.innerHeight/2);
 
-            }
-            else if(digitToShow == 2){
-                image(digi2,window.innerWidth/2,window.innerHeight/2,window.innerWidth/2,window.innerHeight/2);
+                }
+                else if(digitToShow == 1){
+                    image(digi1,window.innerWidth/2,window.innerHeight/2,window.innerWidth/2,window.innerHeight/2);
 
-            }
-            else if(digitToShow == 3){
-                image(digi3,window.innerWidth/2,window.innerHeight/2,window.innerWidth/2,window.innerHeight/2);
+                }
+                else if(digitToShow == 2){
+                    image(digi2,window.innerWidth/2,window.innerHeight/2,window.innerWidth/2,window.innerHeight/2);
 
-            }
-            else if(digitToShow == 4){
-                image(digi4,window.innerWidth/2,window.innerHeight/2,window.innerWidth/2,window.innerHeight/2);
+                }
+                else if(digitToShow == 3){
+                    image(digi3,window.innerWidth/2,window.innerHeight/2,window.innerWidth/2,window.innerHeight/2);
 
-            }
-            else if(digitToShow == 5){
-                image(digi5,window.innerWidth/2,window.innerHeight/2,window.innerWidth/2,window.innerHeight/2);
+                }
+                else if(digitToShow == 4){
+                    image(digi4,window.innerWidth/2,window.innerHeight/2,window.innerWidth/2,window.innerHeight/2);
 
-            }
-            else if(digitToShow == 6){
-                image(digi6,window.innerWidth/2,window.innerHeight/2,window.innerWidth/2,window.innerHeight/2);
+                }
+                else if(digitToShow == 5){
+                    image(digi5,window.innerWidth/2,window.innerHeight/2,window.innerWidth/2,window.innerHeight/2);
 
-            }
-            else if(digitToShow == 7){
-                image(digi7,window.innerWidth/2,window.innerHeight/2,window.innerWidth/2,window.innerHeight/2);
+                }
+                else if(digitToShow == 6){
+                    image(digi6,window.innerWidth/2,window.innerHeight/2,window.innerWidth/2,window.innerHeight/2);
 
-            }
-            else if(digitToShow == 8){
-                image(digi8,window.innerWidth/2,window.innerHeight/2,window.innerWidth/2,window.innerHeight/2);
+                }
+                else if(digitToShow == 7){
+                    image(digi7,window.innerWidth/2,window.innerHeight/2,window.innerWidth/2,window.innerHeight/2);
 
-            }
-            else if(digitToShow == 9){
-                image(digi9,window.innerWidth/2,window.innerHeight/2,window.innerWidth/2,window.innerHeight/2);
+                }
+                else if(digitToShow == 8){
+                    image(digi8,window.innerWidth/2,window.innerHeight/2,window.innerWidth/2,window.innerHeight/2);
 
+                }
+                else if(digitToShow == 9){
+                    image(digi9,window.innerWidth/2,window.innerHeight/2,window.innerWidth/2,window.innerHeight/2);
+
+                }
             }
         }
         else if(whichModeAmI() == 1){
@@ -637,50 +686,47 @@ function DrawLowerRightPanel(){
 
             }
         }
-    }
-    if(startshowingonlynumbers == true){
-        if(digitToShow == 0){
-            image(new0,window.innerWidth/2,window.innerHeight/2,window.innerWidth/2,window.innerHeight/2);
-
-        }
-        else if(digitToShow == 1){
-            image(new1,window.innerWidth/2,window.innerHeight/2,window.innerWidth/2,window.innerHeight/2);
-
-        }
-        else if(digitToShow == 2){
-            image(new2,window.innerWidth/2,window.innerHeight/2,window.innerWidth/2,window.innerHeight/2);
-
-        }
-        else if(digitToShow == 3){
-            image(new3,window.innerWidth/2,window.innerHeight/2,window.innerWidth/2,window.innerHeight/2);
-
-        }
-        else if(digitToShow == 4){
-            image(new4,window.innerWidth/2,window.innerHeight/2,window.innerWidth/2,window.innerHeight/2);
-
-        }
-        else if(digitToShow == 5){
-            image(new5,window.innerWidth/2,window.innerHeight/2,window.innerWidth/2,window.innerHeight/2);
-
-        }
-        else if(digitToShow == 6){
-            image(new6,window.innerWidth/2,window.innerHeight/2,window.innerWidth/2,window.innerHeight/2);
-
-        }
-        else if(digitToShow == 7){
-            image(new7,window.innerWidth/2,window.innerHeight/2,window.innerWidth/2,window.innerHeight/2);
-
-        }
-        else if(digitToShow == 8){
-            image(new8,window.innerWidth/2,window.innerHeight/2,window.innerWidth/2,window.innerHeight/2);
-
-        }
-        else if(digitToShow == 9){
-            image(new9,window.innerWidth/2,window.innerHeight/2,window.innerWidth/2,window.innerHeight/2);
-
+        else{
+            noStroke();
+            textSize(60);
+            text(alltheequationsbaybee[val],(window.innerWidth/2)+(window.innerWidth/4),(window.innerHeight/2)+(window.innerHeight/4),window.innerWidth/4,window.innerHeight/4);
         }
     }
 
+
+}
+
+function runThisMess(){
+
+    val = Math.floor(Math.random()*alltheequationsbaybee.length-1);
+    var valarray;
+
+    if(alltheequationsbaybee[val].indexOf("+") > 0){
+        valarray = alltheequationsbaybee[val].split("+");
+        answer = parseInt(valarray[0]) + parseInt(valarray[1]);
+    }
+    else if(alltheequationsbaybee[val].indexOf("-") > 0){
+        valarray = alltheequationsbaybee[val].split("-");
+        answer = valarray[0] - valarray[1];
+    }
+    else if(alltheequationsbaybee[val].indexOf("*") > 0){
+        valarray = alltheequationsbaybee[val].split("*");
+        answer = valarray[0] * valarray[1];
+    }
+    else if(alltheequationsbaybee[val].indexOf("/") > 0){
+        valarray = alltheequationsbaybee[val].split("/");
+        answer = valarray[0] / valarray[1];
+    }
+
+    console.log("answer=" + answer);
+
+    if(meanPredictionAccuracySoFar >= .60){
+        addToScore();
+    }
+
+    meanPredictionAccuracySoFar = 0;
+    numPredictions = 0;
+    timetogo = 10;
 }
 
 function TimeToSwitchDigits(){
@@ -801,11 +847,49 @@ function whichModeAmI(){
     return mode;
 }
 
+function hardMath(){
+    Identity = String(username) + "_mathYes";
+    listitems = document.getElementById(Identity);
+    if(listitems.innerHTML.toString() == "true"){
+        if(whichModeAmI() == 0 || whichModeAmI() == 1){
+            mode = 2;
+        }
+        else{
+            mode = 0;
+        }
+        comebackto=[]
+        digitToShow=0
+        numlist[0][1] = false;
+        numlist[1][1] = false;
+        numlist[2][1] = false;
+        numlist[3][1] = false;
+        numlist[4][1] = false;
+        numlist[5][1] = false;
+        numlist[6][1] = false;
+        numlist[7][1] = false;
+        numlist[8][1] = false;
+        numlist[9][1] = false;
+        times[0] = 5;
+        times[1] = 5;
+        times[2] = 5;
+        times[3] = 5;
+        times[4] = 5;
+        times[5] = 5;
+        times[6] = 5;
+        times[7] = 5;
+        times[8] = 5;
+        times[9] = 5;
+    }
+}
+
 function switchModes(){
     if(whichModeAmI() == 0){
         mode = 1;
     }
     else if(whichModeAmI() == 1){
+        mode = 0;
+    }
+    else{
         mode = 0;
     }
     comebackto=[]
@@ -834,7 +918,12 @@ function switchModes(){
 
 function DetermineWeatherToSwitchDigits(){
     if(TimeToSwitchDigits()){
-        SwitchDigits();
+        if(whichModeAmI() == 0 || whichModeAmI() == 1){
+            SwitchDigits();
+        }
+        else{
+            runThisMess();
+        }
     }
 }
 
@@ -852,14 +941,17 @@ function SignIn(){
         CreateSignInItem(username,list);
         CreatePersonalBestItem(username,list);
         CreateCurrentScoreItem(username,list);
+        CreateMathYesItem(username,list);
     }
     else {
-        ID = String(username) + "_signins"
+        ID = String(username) + "_signins";
         listItem = document.getElementById(ID);
         listItem.innerHTML = parseInt(listItem.innerHTML) + 1;
         resetCurrentScore();
+
+        Id2 = String(username) + "_mathYes";
+        listItemss = document.getElementById(Id2);
     }
-    console.log(list.innerHTML);
     return false;
 }
 
@@ -892,6 +984,14 @@ function CreateCurrentScoreItem(username,list){
 
 }
 
+function CreateMathYesItem(username,list){
+    var item5 = document.createElement('li');
+    item5.innerHTML = "false";
+    item5.id = String(username) + "_mathYes";
+    list.appendChild(item5);
+
+}
+
 function IsNewUser(username,list){
     var users = list.children;
     var usernameFound = false;
@@ -907,6 +1007,7 @@ function IsNewUser(username,list){
 function drawLowerLeftPanel(){
 
     noStroke();
+    textSize(20);
     //noFill();
     //RightSide
     if(usernew == true){
@@ -924,7 +1025,6 @@ function drawLowerLeftPanel(){
     listItem = document.getElementById(ID);
     ID2 = String(username) + "_personalBest";
     listItem2 = document.getElementById(ID2);
-    console.log(listItem2);
     text("Current score = " + listItem.innerHTML,0,(window.innerHeight/2)+(window.innerHeight/4),window.innerWidth/4,window.innerHeight/8);
     text("High score = " + listItem2.innerText,0,(window.innerHeight/2)+(window.innerHeight/4)+(window.innerHeight/8),window.innerWidth/4,window.innerHeight/8);
 
@@ -932,7 +1032,7 @@ function drawLowerLeftPanel(){
     text("Scoreboard",window.innerWidth/4,window.innerHeight/2,window.innerWidth/4,window.innerHeight/8);
     var scores = [];
     var userscore = [];
-    for(var i = 0; i < list.children.length; i+=4){
+    for(var i = 0; i < list.children.length; i+=5){
         userscore.push(list.children[i].innerHTML);
         scores.push(userscore);
         userscore = [];
@@ -974,6 +1074,9 @@ function addToScore(){
     else if(whichModeAmI() == 1){
         listItem.innerHTML = parseInt(listItem.innerHTML) + 2;
     }
+    else if(whichModeAmI() == 2){
+        listItem.innerHTML = parseInt(listItem.innerHTML) + 3;
+    }
 
     ID2 = String(username) + "_personalBest";
     listItem2 = document.getElementById(ID2);
@@ -981,6 +1084,12 @@ function addToScore(){
     if(parseInt(listItem.innerHTML) > parseInt(listItem2.innerHTML)){
         listItem2.innerHTML = parseInt(listItem.innerHTML);
         bestBeat = true;
+    }
+
+    if(parseInt(listItem2.innerHTML) >= 10){
+        Identity = String(username) + "_mathYes";
+        listitemsss = document.getElementById(Identity);
+        listitemsss = "true";
     }
 }
 
