@@ -686,7 +686,7 @@ function DrawLowerRightPanel(){
 
             }
         }
-        else{
+        else if(whichModeAmI() == 2){
             noStroke();
             textSize(60);
             text(alltheequationsbaybee[val],(window.innerWidth/2)+(window.innerWidth/4),(window.innerHeight/2)+(window.innerHeight/4),window.innerWidth/4,window.innerHeight/4);
@@ -889,7 +889,7 @@ function switchModes(){
     else if(whichModeAmI() == 1){
         mode = 0;
     }
-    else{
+    else if(whichModeAmI() == 2){
         mode = 0;
     }
     comebackto=[]
